@@ -6,6 +6,13 @@ Mosquitto集群
 
 ## 编译安装
 
+系统依赖：
+sudo apt-get install uuid-dev     </br>
+$sudo apt-get install xsltproc    </br>
+$sudo apt-get install docbook-xsl </br>
+可能还需要：
+$sudo apt-get install docbook-defguide </br>
+
 \> git clone https://github.com/hui6075/mosquitto-cluster.git </br>
 \> cd mosquitto-cluster && vi config.mk </br>
 ```
