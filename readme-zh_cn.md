@@ -6,6 +6,11 @@ Mosquitto集群
 
 ## 编译安装
 
+系统依赖：
+sudo apt-get install uuid-dev     </br>
+$sudo apt-get install xsltproc    </br>
+$sudo apt-get install docbook-xsl </br>
+
 \> git clone https://github.com/hui6075/mosquitto-cluster.git </br>
 \> cd mosquitto-cluster && vi config.mk </br>
 ```
@@ -13,6 +18,51 @@ Mosquitto集群
 WITH_CLUSTER:=yes
 ```
 \> make && make install </br>
+
+编译支持mqtt+ws的mosquitto:
+
+修改编译选项
+vim config.mk
+因为我们需要websocket支持,所以找到WITH_WEBSOCKETS将值设置为yes </br>
+安装c-ares </br>
+```
+wget http://c-ares.haxx.se/download/c-ares-1.10.0.tar.gz
+tar xvf c-ares-1.10.0.tar.gz
+cd c-ares-1.10.0 
+./configure 
+make 
+make install
+```
+安装websocket: </br>
+
+```
+https://launchpadlibrarian.net/355860540/libwebsockets_2.0.3.orig.tar.gz
+tar zxvf libwebsockets_2.0.3.orig.tar.gz
+cd libwebsockets_2.0.3.orig.tar.gz
+mkdir build & cd build
+cmake ..
+make
+make install
+
+```
+编辑mosquitto目录下的config.mk </br> 
+
+如果编译出现：</br> 
+```
+error: ‘F_SETSIG’ undeclared (first use in this function) 
+```
+解决方法,编译时加 -D_GNU_SOURCE
+```
+vi config.mk
+
+在下面添加一个-D_GNU_SOURCE
+
+ifeq ($(WITH_WEBSOCKETS),yes)
+        BROKER_CFLAGS:=$(BROKER_CFLAGS) -DWITH_WEBSOCKETS -D_GNU_SOURCE
+        BROKER_LIBS:=$(BROKER_LIBS) -lwebsockets
+endif
+
+```
 
 ## 部署
 
