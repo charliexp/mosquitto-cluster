@@ -26,6 +26,13 @@ Then config the loadbalancer, take above adresses as real server address. It is 
 # WITH_BRIDGE:=yes
 WITH_CLUSTER:=yes
 ```
+if Build man page documentation
+WITH_DOCS:=yes
+
+install:
+$sudo apt-get install xsltproc
+$sudo apt-get install docbook-xsl
+  
 \> make && make install </br>
 
 ## Cluster Specification
