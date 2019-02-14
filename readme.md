@@ -32,7 +32,9 @@ WITH_DOCS:=yes
 install:
 $sudo apt-get install xsltproc
 $sudo apt-get install docbook-xsl
-  
+
+sudo apt-get install uuid-dev
+
 \> make && make install </br>
 
 ## Cluster Specification
